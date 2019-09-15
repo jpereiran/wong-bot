@@ -1,5 +1,6 @@
 # import flask dependencies
 from flask import Flask, request, make_response, jsonify
+import os
 
 # initialize the flask app
 app = Flask(__name__)
