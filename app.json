@@ -1,0 +1,6 @@
+{
+  "name": "Dialogflow Wong bot",
+  "description": "Bot para el curso de DBC",
+  "repository": "https://github.com/jpereiran/wong-bot/",
+  "keywords": ["dialogflow", "sales","pyowm","wong"]
+}
