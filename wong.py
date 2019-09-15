@@ -40,9 +40,7 @@ def results():
 	intent = req.get('queryResult').get('intent').get('displayName')
 	
 	if intent == 'wong.tiendas':
-		return {'fulfillmentText': {'message': {
-            			'text': tiendas(),
-        		}}}
+		return {'fulfillmentText': tiendas()}
 
 	# return a fulfillment response
 	return {'fulfillmentText': intent}
