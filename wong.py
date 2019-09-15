@@ -28,7 +28,6 @@ def tiendas():
 			anexo = tienda['anexo']
 			respuesta = respuesta + nombre + ' - ' + direccion + '\n'
 			
-	respuesta = '"message":{"text":' + respuesta + '}'
 	return respuesta
 
 
@@ -41,7 +40,9 @@ def results():
 	intent = req.get('queryResult').get('intent').get('displayName')
 	
 	if intent == 'wong.tiendas':
-		return {'fulfillmentText': {tiendas()}}
+		return {'fulfillmentText': {'message': {
+            			'text': tiendas(),
+        		}}}
 
 	# return a fulfillment response
 	return {'fulfillmentText': intent}
