@@ -21,11 +21,11 @@ def tiendas():
     for tienda in tiendas:
         telefono = tienda['phone']
         if telefono != '':
-            color = tienda['polygonColor']
-		    nombre = tienda['name']
-		    direccion = tienda['address']
-		    telefono = tienda['phone']
-		    anexo = tienda['anexo']
+		color = tienda['polygonColor']
+		nombre = tienda['name']
+		direccion = tienda['address']
+		telefono = tienda['phone']
+		anexo = tienda['anexo']
 	        respuesta = respuesta + nombre + ' - ' + direccion + '\n'
             
     respuesta = '"message":{"text":' + respuesta + '}'
