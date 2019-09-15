@@ -1,6 +1,7 @@
 # import flask dependencies
 from flask import Flask, request, make_response, jsonify
 import os
+import requests
 
 # initialize the flask app
 app = Flask(__name__)
@@ -11,6 +12,26 @@ app = Flask(__name__)
 def index():
     return 'Hello World!'
 
+#tiendas
+def tiendas():
+    url = 'https://www.wong.pe/files/PE-districts.json'
+    resp = requests.get(url)
+    tiendas = resp.json()
+    respuesta = ''
+    for tienda in tiendas:
+        telefono = tienda['phone']
+        if telefono != '':
+            color = tienda['polygonColor']
+		    nombre = tienda['name']
+		    direccion = tienda['address']
+		    telefono = tienda['phone']
+		    anexo = tienda['anexo']
+	        respuesta = respuesta + nombre + ' - ' + direccion + '\n'
+            
+    respuesta = '"message":{"text":' + respuesta + '}'
+    return respuesta
+
+
 # function for responses
 def results():
     # build a request object
@@ -18,6 +39,9 @@ def results():
 
     # fetch action from json
     intent = req.get('queryResult').get('intent').get('displayName')
+    
+    if intent == 'wong.tiendas':
+        return {'fulfillmentText': {tiendas()}}
 
     # return a fulfillment response
     return {'fulfillmentText': intent}
