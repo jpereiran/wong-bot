@@ -48,6 +48,7 @@ def busqueda(parameter):
 	respuesta = ('[{"card": { "title": ' + nombre + ',"subtitle":' + marca +',"imageUri":' + imageUrl + ',' +
 			   '"buttons": [{"text": "Detalles","postback":' + link + '},{"text": "Similares","postback":' +
 			   categoria + '}]},"platform": "FACEBOOK"}]')
+	print(respuesta)
 	return  json.loads(respuesta)
 
 # function for responses
