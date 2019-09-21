@@ -45,9 +45,9 @@ def busqueda(parameter):
 		categoria = "https://www.wong.pe" + categorias
 		imageUrl = 'https://wongfood.vteximg.com.br/arquivos/ids/'+imageId+'-250-250/' 
 
-	respuesta = ('[{"card": { "title": ' + nombre + ',"subtitle":' + marca +',"imageUri":' + imageUrl + ',' +
-			   '"buttons": [{"text": "Detalles","postback":' + link + '},{"text": "Similares","postback":' +
-			   categoria + '}]},"platform": "FACEBOOK"}]')
+	respuesta = ('[{"card": { "title": "' + nombre + '","subtitle":"' + marca +'","imageUri":"' + imageUrl + '",' +
+			   '"buttons": [{"text": "Detalles","postback":"' + link + '"},{"text": "Similares","postback":"' +
+			   categoria + '"}]},"platform": "FACEBOOK"}]')
 	print(respuesta)
 	return  json.loads(respuesta)
 
