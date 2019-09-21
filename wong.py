@@ -46,7 +46,7 @@ def busqueda(parameter):
 	for res in resultados:
 		nombre = res['productName']
 		marca = res['brand']
-		categorias = res['categoriesIds'][0]
+		categorias = res['categories'][0]
 		link = res['link']
 		imageId = res['items'][0]['images'][0]['imageId']
 		categoria = "https://www.wong.pe" + categorias
