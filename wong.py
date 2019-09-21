@@ -34,7 +34,7 @@ def tiendas():
 def lugares_envio():
 	link = 'https://www.wong.pe/institucional/costos-de-envio'
 	imageUrl='http://lucidez.pe/wp-content/uploads/2018/06/wong.jpg'
-	title='Nuestras tiendas'
+	title='Visitanos en nuestras nuestras tiendas'
 	respuesta = ('[{"card": { "title": "' + title + '","imageUri":"' + imageUrl + '",' +
 			   '"buttons": [{"text": "Ver lugares de envio","postback":"' + link + '"}]},"platform": "FACEBOOK"}]')
 	return json.loads(respuesta)
