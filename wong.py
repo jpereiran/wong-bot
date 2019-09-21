@@ -57,13 +57,14 @@ def busqueda(parameter):
 			   categoria + '"}]},"platform": "FACEBOOK"}]')
 	print(respuesta)
 	return  json.loads(respuesta)
+
 #puntos bonus
 def puntos_bonus(dni):
 	url = 'https://widget-admin.mybluemix.net/anita/backend/db.php?action=consultarPuntos&doctype=1&dni='+dni
 	resp = requests.get(url)
 	resultado = resp.json()
 	puntos = resultado['payload']['rewards']
-	return ('Tienes ' + puntos + ' puntos')
+	return ('Tienes ' + str(puntos) + ' puntos')
 
 #ofertas
 def ofertas():
