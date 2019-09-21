@@ -57,6 +57,13 @@ def busqueda(parameter):
 			   categoria + '"}]},"platform": "FACEBOOK"}]')
 	print(respuesta)
 	return  json.loads(respuesta)
+#puntos bonus
+def puntos_bonus(dni):
+	url = 'https://widget-admin.mybluemix.net/anita/backend/db.php?action=consultarPuntos&doctype=1&dni='+dni
+	resp = requests.get(url)
+	resultado = resp.json()
+	puntos = resultado['payload']['rewards']
+	return ('Tienes ' + puntos + ' puntos')
 
 #ofertas
 def ofertas():
@@ -102,6 +109,9 @@ def results():
 		return {'fulfillmentMessages': lugares_envio()}
 	elif intent == 'wong.ofertas':
 		return {'fulfillmentMessages': ofertas()}
+	elif intent == 'wong.bonus - custom':
+		parameter = req.get('queryResult').get('parameters').get('any')
+		return {'fulfillmentText': puntos_bonus(parameter)}
 	# return a fulfillment response
 	return {'fulfillmentText': intent}
 
