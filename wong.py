@@ -62,7 +62,7 @@ def results():
 	
 	if intent == 'wong.tiendas':
 		return {'fulfillmentText': tiendas()}
-	elif intent == 'test_scrape':
+	elif intent == 'wong.buscar':
 		parameter = req.get('queryResult').get('parameters').get('any')
 		if parameter == '':
 			return {'fulfillmentText': 'No entendí lo que buscas, por favor intenta nuevamente'}
