@@ -37,6 +37,7 @@ def lugares_envio():
 	title='Nuestras tiendas'
 	respuesta = ('[{"card": { "title": "' + title + '","imageUri":"' + imageUrl + '",' +
 			   '"buttons": [{"text": "Ver lugares de envio","postback":"' + link + '"}]},"platform": "FACEBOOK"}]')
+	return respuesta
 #busqueda
 def busqueda(parameter):
 	url = 'https://www.wong.pe/api/catalog_system/pub/products/search/?ft='+parameter+'&_from=0&_to=0'
@@ -73,7 +74,7 @@ def ofertas():
 		precio_ori = res['items'][0]['sellers'][0]['commertialOffer']['ListPrice']
 
 		respuesta = respuesta + ('{"card": { "title":"' + nombre + '","subtitle":"' + marca +'","imageUri":"' + imageUrl + '",' +
-					'"buttons": [{"text": "Precio Oferta:'+ precio_ofe +'"},{"text": "Precio Normal:'+precio_ori+
+					'"buttons": [{"text": "Precio Oferta:'+ str(precio_ofe) +'"},{"text": "Precio Normal:'+str(precio_ori)+
 					'"},{"text": "Detalles","postback":"' + link + '"}]},"platform": "FACEBOOK"},')
 
 	respuesta = respuesta + ']'
