@@ -32,26 +32,23 @@ def tiendas():
 	return respuesta
 
 #busqueda
-def busqueda(text):
-	url = 'https://www.wong.pe/api/catalog_system/pub/products/search/?ft='+text+'&_from=0&_to=0'
+def busqueda(parameter):
+	url = 'https://www.wong.pe/api/catalog_system/pub/products/search/?ft='+parameter+'&_from=0&_to=0'
 	resp = requests.get(url)
 	resultados = resp.json()
-	respuesta = ''
 	for res in resultados:
 		nombre = res['productName']
 		marca = res['brand']
-		categorias = res['categoriesIds']
+		categorias = res['categoriesIds'][0]
 		link = res['link']
 		imageId = res['items'][0]['images'][0]['imageId']
-		print(nombre)
-		print(marca)
-		print(categorias)
-		print(link)
-		print(imageId)
-		imageUrl = 'https://wongfood.vteximg.com.br/arquivos/ids/'+imageId+'-120-120/' 
-		print(imageUrl)
-			
-	return respuesta
+		categoria = "https://www.wong.pe" + categorias
+		imageUrl = 'https://wongfood.vteximg.com.br/arquivos/ids/'+imageId+'-250-250/' 
+
+	respuesta = '[{"card": { "title": ' + nombre + ',"subtitle":' + marca +',"imageUri":' + imageUrl + ',' +
+			   '"buttons": [{"text": "Detalles","postback":' + link + '},{"text": "Similares","postback":' +
+			   categoria + '}]},"platform": "FACEBOOK"}]'
+	return  json.loads(respuesta)
 
 # function for responses
 def results():
@@ -60,33 +57,15 @@ def results():
 
 	# fetch action from json
 	intent = req.get('queryResult').get('intent').get('displayName')
+	text = req.get('queryResult').get('queryText')
 	
 	if intent == 'wong.tiendas':
 		return {'fulfillmentText': tiendas()}
 	elif intent == 'test_scrape':
-		j= ''' [
-		      {
-			"card": {
-			  "title": "Coca Cola Regular",
-			  "subtitle": "Coca Cola",
-			  "imageUri": "https://wongfood.vteximg.com.br/arquivos/ids/308010-250-250/",
-			  "buttons": [
-			    {
-			      "text": "Detalles",
-			      "postback": "https://www.wong.pe/coca-cola-regular-pack-6-botellas-de-300-ml-c-u-713716/p"
-			    },
-			    {
-			      "text": "Similares",
-			      "postback": "https://www.wong.pe/Comidas%20Preparadas/Comidas/Comidas%20Frescas/"
-			    }
-			  ]
-			},
-			"platform": "FACEBOOK"
-		      }
-		    ]
-		'''
-		data = json.loads(j)
-		return {'fulfillmentMessages': data}
+		parameter = req.get('queryResult').get('parameters').get('any')
+		if parameter == '':
+			return {'fulfillmentText': 'No entendí lo que buscas, por favor intenta nuevamente'}
+		return {'fulfillmentMessages': busqueda(parameter)}
 	# return a fulfillment response
 	return {'fulfillmentText': intent}
 
