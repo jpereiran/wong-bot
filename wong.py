@@ -51,6 +51,30 @@ def busqueda(parameter):
 	print(respuesta)
 	return  json.loads(respuesta)
 
+#ofertas
+def ofertas():
+	url = 'https://www.wong.pe/api/catalog_system/pub/products/search/?&fq=H%3a4234&_from=0&_to=2'
+	resp = requests.get(url)
+	resultados = resp.json()
+	respuesta = '['
+	for res in resultados:
+		nombre = res['productName']
+		marca = res['brand']
+		link = res['link']
+		imageId = res['items'][0]['images'][0]['imageId']
+		imageUrl = 'https://wongfood.vteximg.com.br/arquivos/ids/'+imageId+'-250-250/'
+		precio_ofe = res['items'][0]['sellers'][0]['commertialOffer']['Price']
+		precio_ori = res['items'][0]['sellers'][0]['commertialOffer']['ListPrice']
+
+		respuesta = respuesta + ('{"card": { "title":"' + nombre + '","subtitle":"' + marca +'","imageUri":"' + imageUrl + '",' +
+					'"buttons": [{"text": "Precio Oferta:'+ precio_ofe +'"},{"text": "Precio Normal:'+precio_ori+
+					'"},{"text": "Detalles","postback":"' + link + '"}]},"platform": "FACEBOOK"},')
+
+	respuesta = respuesta + ']'
+
+	return  json.loads(respuesta)
+
+
 # function for responses
 def results():
 	# build a request object
@@ -67,6 +91,8 @@ def results():
 		if parameter == '':
 			return {'fulfillmentText': 'No entendí lo que buscas, por favor intenta nuevamente'}
 		return {'fulfillmentMessages': busqueda(parameter)}
+	elif intent == 'wong.ofertas':
+		return {'fulfillmentMessages': ofertas()}
 	# return a fulfillment response
 	return {'fulfillmentText': intent}
 
