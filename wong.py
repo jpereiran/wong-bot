@@ -37,7 +37,7 @@ def lugares_envio():
 	title='Nuestras tiendas'
 	respuesta = ('[{"card": { "title": "' + title + '","imageUri":"' + imageUrl + '",' +
 			   '"buttons": [{"text": "Ver lugares de envio","postback":"' + link + '"}]},"platform": "FACEBOOK"}]')
-	return json.loads((respuesta)
+	return json.loads(respuesta)
 #busqueda
 def busqueda(parameter):
 	url = 'https://www.wong.pe/api/catalog_system/pub/products/search/?ft='+parameter+'&_from=0&_to=0'
