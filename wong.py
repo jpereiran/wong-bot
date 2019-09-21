@@ -77,7 +77,7 @@ def ofertas():
 					'"buttons": [{"text": "Precio Oferta:'+ str(precio_ofe) +'"},{"text": "Precio Normal:'+str(precio_ori)+
 					'"},{"text": "Detalles","postback":"' + link + '"}]},"platform": "FACEBOOK"},')
 
-	respuesta = respuesta + ']'
+	respuesta = respuesta[:-1] + ']'
 
 	return  json.loads(respuesta)
 
